@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#321970" />
+    <meta name="description" content="The Floor Is... a fast, funny, rule-changing browser party game." />
+    <title>The Floor Is...</title>
+  </head>
+  <body>
+    <div id="app">
+      <main id="landing" class="landing" aria-labelledby="game-title">
+        <section class="hero-card">
+          <p class="eyebrow">A tiny party game with huge problems</p>
+          <h1 id="game-title">THE FLOOR IS<span id="title-rule"> LAVA!</span></h1>
+          <p class="lede">Every 20 seconds the rules change. Run, jump, throw things, and try not to become a frog.</p>
+          <div class="hero-actions">
+            <button id="play-button" class="primary-button">Play now <span aria-hidden="true">▶</span></button>
+            <button id="make-rule-button" class="secondary-button">Make the rule</button>
+          </div>
+          <p class="controls-line"><strong>Move:</strong> WASD / arrows · <strong>Jump:</strong> Space · <strong>Grab:</strong> E · <strong>Emote:</strong> Q</p>
+          <div class="settings-row" aria-label="Game settings">
+            <label>Color
+              <input id="player-color" type="color" value="#ff4f9a" aria-label="Player color" />
+            </label>
+            <label>Hat
+              <select id="player-hat" aria-label="Player accessory">
+                <option value="crown">Tiny crown</option>
+                <option value="party">Party hat</option>
+                <option value="leaf">Leaf</option>
+                <option value="none">No hat</option>
+              </select>
+            </label>
+            <button id="sound-button" class="icon-button" aria-pressed="true">🔊 Sound</button>
+            <button id="fullscreen-button" class="icon-button">⛶ Full screen</button>
+          </div>
+        </section>
+        <aside class="rule-preview" aria-label="Included game rules">
+          <span>🔥 Lava</span><span>🌊 Flood</span><span>👻 Ghosts</span><span>🧊 Freeze</span>
+          <span>🐔 Chickens</span><span>🎹 Pianos</span><span>🐸 Frogs</span>
+        </aside>
+      </main>
+
+      <section id="rule-maker" class="dialog-card hidden" role="dialog" aria-modal="true" aria-labelledby="rule-maker-title">
+        <button id="close-rule-maker" class="close-button" aria-label="Close">×</button>
+        <p class="eyebrow">Safe chaos laboratory</p>
+        <h2 id="rule-maker-title">Make the Rule</h2>
+        <label>Challenge name
+          <input id="custom-name" maxlength="32" placeholder="The floor is suspicious!" autocomplete="off" />
+        </label>
+        <fieldset>
+          <legend>Pick up to three modifiers</legend>
+          <label><input type="checkbox" name="modifier" value="tiny" /> Tiny player</label>
+          <label><input type="checkbox" name="modifier" value="backwards" /> Backwards controls</label>
+          <label><input type="checkbox" name="modifier" value="jumpOnly" /> Jump-only</label>
+          <label><input type="checkbox" name="modifier" value="speed" /> Super speed</label>
+          <label><input type="checkbox" name="modifier" value="extraChickens" /> Extra chickens</label>
+          <label><input type="checkbox" name="modifier" value="lowGravity" /> Low gravity</label>
+        </fieldset>
+        <p id="maker-error" class="error-message" role="alert"></p>
+        <div class="dialog-actions">
+          <button id="play-custom" class="primary-button">Play challenge</button>
+          <button id="copy-custom" class="secondary-button">Copy link</button>
+        </div>
+      </section>
+
+      <section id="game-shell" class="game-shell hidden" aria-label="Game">
+        <div id="game-container"></div>
+        <div id="hud" class="hud" aria-live="polite">
+          <div class="hud-pill"><span>⭐</span><strong id="score-value">0</strong></div>
+          <div class="rule-pill"><small id="rule-kicker">NEXT RULE</small><strong id="rule-name">Warm-up</strong><span id="rule-timer">20</span></div>
+          <div class="hud-pill"><span>❤️</span><strong id="health-value">5</strong></div>
+        </div>
+        <button id="pause-button" class="pause-button" aria-label="Pause game">Ⅱ</button>
+        <div id="touch-controls" class="touch-controls" aria-label="Touch game controls">
+          <div id="joystick" class="joystick"><div id="joystick-knob"></div></div>
+          <div class="touch-actions">
+            <button data-action="emote" aria-label="Emote">😜</button>
+            <button data-action="grab" aria-label="Grab or throw">✋</button>
+            <button data-action="jump" class="jump-touch" aria-label="Jump or dodge">↑</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="pause-overlay" class="overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pause-title">
+        <div class="overlay-card">
+          <p class="eyebrow">Time politely stopped</p>
+          <h2 id="pause-title">Paused</h2>
+          <p>Move with WASD or arrows. Space jumps, E grabs or throws, and Q makes an important noise.</p>
+          <button id="resume-button" class="primary-button">Keep playing</button>
+          <button id="restart-button" class="secondary-button">Restart run</button>
+          <button id="home-button" class="text-button">Back to home</button>
+        </div>
+      </section>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
